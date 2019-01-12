@@ -1,16 +1,17 @@
 class GraphqlController < ApplicationController
+  skip_before_action :verify_authenticity_token
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      ip_address: request_ip_address
     }
     result = GraphqlRubySchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue => e
     raise e unless Rails.env.development?
+
     handle_error_in_development e
   end
 
