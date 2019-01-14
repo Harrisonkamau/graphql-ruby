@@ -1,5 +1,6 @@
 module Types
   class QueryType < Types::BaseObject
+    graphql_name 'Query'
 
     field :author, Types::AuthorType, null: false,
       description: 'An author' do
@@ -7,7 +8,19 @@ module Types
     end
 
     def author(id:)
-      Author.find(id)
+      Author.where(id: id).first
+    end
+
+    field :authors, Types::AuthorType, null: false, description: 'All authors'
+
+    def authors(limit:)
+      Author.all.order(latest).limit(limit)
+    end
+
+    private
+
+    def latest
+      'id desc'
     end
   end
 end
