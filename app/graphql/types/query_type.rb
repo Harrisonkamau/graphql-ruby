@@ -11,8 +11,8 @@ module Types
       Author.where(id: id).first
     end
 
-    field :authors, Types::AuthorType, null: false, description: 'All authors' do
-      argument :limit, Int, required: true
+    field :authors, [Types::AuthorType], null: false, description: 'All authors' do
+      argument :limit, Int, required: false
     end
 
     def authors(limit:)
