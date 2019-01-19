@@ -15,7 +15,7 @@ module Types
       argument :limit, Int, required: false
     end
 
-    def authors(limit:)
+    def authors(limit = 20)
       Author.all.order(latest).limit(limit)
     end
 
