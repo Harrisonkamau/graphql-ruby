@@ -3,7 +3,7 @@ module Types
     graphql_name 'Query'
 
     field :author, Types::AuthorType, null: false,
-      description: 'An author' do
+      description: 'Retrieve an author by id' do
         argument :id, ID, required: true
     end
 
